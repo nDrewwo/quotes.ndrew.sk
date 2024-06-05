@@ -91,10 +91,10 @@
         "author": "Marek Urminský",
         "quote": "Piču šak on je 4:3"
     },
-    {
-        "author": "Martin Horváth",
-        "quote": "Hoč pôjde do geta strieľať n*grov"
-    },
+        {
+            "author": "Martin Horváth",
+            "quote": "Hoč pôjde do geta strieľať n*grov"
+        },
     {
         "author": "Marek Serdel",
         "quote": "Akonáhle maťo podskočí vidí osem dimenzii."
@@ -263,7 +263,7 @@
         "author": "Patrik Gregor",
         "quote": "Nie každá mačka je pes."
     },
-        {
+    {
         "author": "Marek Serdel",
         "quote": "Ja som rád dychtivy hlavne keď vidím Jura."
     },
@@ -390,5 +390,9 @@
     {
         "author": "Jozef Kostolník",
         "quote": "Teba keď teraz zoberú hrať do porna tak len ako toho manžela čo na začiatku odíde."
+    },
+    {
+        "author": "Marek Serdel",
+        "quote": "Ti pošlem api request do riti ak to zase urobíš len v phpčku. \r\n"
     }
 ]
