@@ -1,12 +1,6 @@
 <?php
 // Database connection details
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "quotes_db";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+include 'db_connection.php';
 
 // Check connection
 if ($conn->connect_error) {

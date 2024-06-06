@@ -15,7 +15,7 @@ def load_json_file(file_path):
         return json.load(file)
 
 # File path to your JSON data
-json_file_path = 'quotes.json'
+json_file_path = 'data/sql/quotes.json'
 
 # Connect to the database
 cnx = mysql.connector.connect(**db_config)
