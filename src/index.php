@@ -15,6 +15,6 @@
     <div id="quote-container">
         <?php include 'processes/fetch_quotes.php'; ?>
     </div>
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
 </html>
