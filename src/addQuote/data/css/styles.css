@@ -5,7 +5,7 @@ body {
     height: 100vh;
     font-size: 20px;
     color: #f3f4f5;
-    background-color: #251605;
+    background-color: #353A47;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -32,7 +32,7 @@ input{
 input[type=submit]{
     cursor: pointer;
     background-color: #f3f4f5;
-    color: #251605;
+    color: #353A47;
 }
 
 #quote{
