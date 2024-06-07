@@ -17,7 +17,7 @@ $stmt->bind_param("ss", $author, $quote);
 
 // Execute the statement
 if ($stmt->execute()) {
-    header("Location: ../index.php");
+    header("Location: https://quotes.ndrew.sk/");
 } else {
     echo "Error: " . $stmt->error;
 }

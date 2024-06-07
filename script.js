@@ -45,3 +45,25 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+function copyQuoteToClipboard() {
+    const quote = document.querySelector('.quote');
+    if (quote) {
+        const textContent = quote.textContent;
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = textContent;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+    } else {
+        console.log('No quote found to copy');
+    }
+}
+
+// Add event listener to the quote div
+const quoteDiv = document.querySelector('.quote');
+if (quoteDiv) {
+    quoteDiv.addEventListener('click', copyQuoteToClipboard);
+} else {
+    console.log('No quote div found to attach event listener');
+}
