@@ -18,9 +18,11 @@ if ($result->num_rows > 0) {
     // Store all divs in an array
     $divs = array();
     while($row = $result->fetch_assoc()) {
-        $div = '<div class="quote">';
+        $quoteText = '"' . $row["quote"] . '" - ' . $row["author"];
+        $displayText = '"' . $row["quote"] . '"<br>- ' . $row["author"];
+        $div = '<div class="quote" data-quote="' . htmlspecialchars($quoteText, ENT_QUOTES, 'UTF-8') . '">';
         $div .= '<p>';
-        $div .= '"' . $row["quote"] . '"<br>- ' . $row["author"];
+        $div .= $displayText;
         $div .= '</p>';
         $div .= '</div>';
         $divs[] = $div;
