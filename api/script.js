@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
       filterQuotes(searchTerm);
     });
   
-    fetch('https://api-ndrew.sk/quotes')
+    fetch('https://api-quotes.ndrew.sk/quotes')
       .then(response => response.json())
       .then(data => {
         // Shuffle the quotes randomly
