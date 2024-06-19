@@ -127,7 +127,7 @@ class AddQuotePage extends StatelessWidget {
   final TextEditingController authorController = TextEditingController();
   final TextEditingController quoteController = TextEditingController();
 
-  Future<void> addQuote(String author, String quote) async {
+  Future<void> addQuote(BuildContext context, String author, String quote) async {
     final url = Uri.parse('https://api-quotes.ndrew.sk/addquote'); // Update with your API endpoint
 
     try {
@@ -144,14 +144,22 @@ class AddQuotePage extends StatelessWidget {
 
       if (response.statusCode == 201) {
         // Successfully added the quote
-        print('Quote added successfully.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Quote added successfully.')),
+        );
+        authorController.clear();
+        quoteController.clear();
       } else {
         // Handle error response
-        print('Failed to add quote: ${response.body}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add quote')),
+        );
       }
     } catch (error) {
       // Handle any errors that occur during the request
-      print('Error adding quote: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error adding quote')),
+      );
     }
   }
 
@@ -230,7 +238,7 @@ class AddQuotePage extends StatelessWidget {
                   onPressed: () {
                     final author = authorController.text;
                     final quote = quoteController.text;
-                    addQuote(author, quote);
+                    addQuote(context, author, quote);
                   },
                   child: Text('Submit'),
                 ),
@@ -242,6 +250,7 @@ class AddQuotePage extends StatelessWidget {
     );
   }
 }
+
 
 
 class Quote {

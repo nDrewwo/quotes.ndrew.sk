@@ -12,7 +12,7 @@ const pool = mariadb.createPool({
     password: '',
     database: 'quotes_db',
     connectionLimit: 5,
-    acquireTimeout: 10000 // 10 seconds timeout for acquiring a connection
+    acquireTimeout: 10000 
 });
 
 async function getConnection() {
@@ -80,5 +80,5 @@ app.post('/addquote', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`API running on http://localhost:${port}`);
 });
