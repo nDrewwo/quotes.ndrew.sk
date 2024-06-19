@@ -124,6 +124,37 @@ class _QuotesPageState extends State<QuotesPage> {
 }
 
 class AddQuotePage extends StatelessWidget {
+  final TextEditingController authorController = TextEditingController();
+  final TextEditingController quoteController = TextEditingController();
+
+  Future<void> addQuote(String author, String quote) async {
+    final url = Uri.parse('https://api-quotes.ndrew.sk/addquote'); // Update with your API endpoint
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'author': author,
+          'quote': quote,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        // Successfully added the quote
+        print('Quote added successfully.');
+      } else {
+        // Handle error response
+        print('Failed to add quote: ${response.body}');
+      }
+    } catch (error) {
+      // Handle any errors that occur during the request
+      print('Error adding quote: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,24 +169,44 @@ class AddQuotePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextField(
+                controller: authorController,
                 decoration: InputDecoration(
                   hintText: 'Author',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
                   ),
                 ),
                 style: TextStyle(fontFamily: 'RammettoOne', fontSize: 16.0),
               ),
               SizedBox(height: 10.0), // Add some space before the button
               TextField(
+                controller: quoteController,
                 decoration: InputDecoration(
                   hintText: 'Quote',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                    borderSide: BorderSide.none,
                   ),
                 ),
                 style: TextStyle(fontFamily: 'RammettoOne', fontSize: 16.0),
@@ -177,7 +228,9 @@ class AddQuotePage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Logic to add quote
+                    final author = authorController.text;
+                    final quote = quoteController.text;
+                    addQuote(author, quote);
                   },
                   child: Text('Submit'),
                 ),
@@ -189,6 +242,7 @@ class AddQuotePage extends StatelessWidget {
     );
   }
 }
+
 
 class Quote {
   final int id;
