@@ -26,6 +26,9 @@ class QuotesPage extends StatefulWidget {
 
 class _QuotesPageState extends State<QuotesPage> {
   List<Quote> quotes = [];
+  List<Quote> filteredQuotes = [];
+  TextEditingController searchController = TextEditingController();
+  bool isSearchVisible = false;
 
   @override
   void initState() {
@@ -42,6 +45,7 @@ class _QuotesPageState extends State<QuotesPage> {
             .map((quoteJson) => Quote.fromJson(quoteJson))
             .toList();
         shuffleQuotes(); // Shuffle quotes on initial fetch
+        filteredQuotes = quotes; // Initialize filteredQuotes with all quotes
       });
     } else {
       throw Exception('Failed to load quotes');
@@ -50,6 +54,21 @@ class _QuotesPageState extends State<QuotesPage> {
 
   void shuffleQuotes() {
     quotes.shuffle();
+    filteredQuotes = quotes;
+  }
+
+  void searchQuotes(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredQuotes = quotes;
+      } else {
+        filteredQuotes = quotes
+            .where((quote) =>
+                quote.quote.toLowerCase().contains(query.toLowerCase()) ||
+                quote.author.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   Future<void> copyQuote(Quote quote) async {
@@ -61,7 +80,12 @@ class _QuotesPageState extends State<QuotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quotes'), titleTextStyle: TextStyle(fontFamily: 'RammettoOne', fontSize: 24.0, color:Color(0xFFF3F4F5)),
+        title: Text('Quotes'),
+        titleTextStyle: TextStyle(
+          fontFamily: 'RammettoOne',
+          fontSize: 24.0,
+          color: Color(0xFFF3F4F5),
+        ),
         backgroundColor: Color(0xFF353A47),
         actions: [
           IconButton(
@@ -72,29 +96,62 @@ class _QuotesPageState extends State<QuotesPage> {
             },
           ),
           IconButton(
+            icon: Icon(Icons.search),
+            color: Color(0xFFF3F4F5),
             onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => AddQuotePage()),
-    );
+              setState(() {
+                isSearchVisible = !isSearchVisible;
+                if (!isSearchVisible) {
+                  searchController.clear();
+                  filteredQuotes = quotes;
+                }
+              });
+            },
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddQuotePage()),
+              );
             },
             icon: Icon(Icons.add),
-            color: Color(0xFFF3F4F5)
-          )
+            color: Color(0xFFF3F4F5),
+          ),
         ],
+        bottom: isSearchVisible
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(48.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search quotes...',
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(color: Color(0xFFF3F4F5), fontFamily: 'RammettoOne'),
+                    ),
+                    style: TextStyle(color: Color(0xFFF3F4F5), fontFamily: 'RammettoOne'),
+                    onChanged: searchQuotes,
+                  ),
+                ),
+              )
+            : null,
       ),
-      body: quotes.isEmpty
-          ? Center(child: CircularProgressIndicator())
+      body: filteredQuotes.isEmpty
+          ? Center(child: Text('No quotes found', style: TextStyle(color: Color(0xFFF3F4F5), fontFamily: 'RammettoOne', fontSize: 20.0)))
           : ListView.builder(
-              itemCount: quotes.length,
+              itemCount: filteredQuotes.length,
               itemBuilder: (context, index) {
-                final quote = quotes[index];
-                return GestureDetector( // Use GestureDetector for click handling
+                final quote = filteredQuotes[index];
+                return GestureDetector(
                   onTap: () => copyQuote(quote),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Color(0xFFF3F4F5)
+                        color: Color(0xFFF3F4F5),
                       ),
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -103,13 +160,21 @@ class _QuotesPageState extends State<QuotesPage> {
                         children: [
                           Text(
                             '“${quote.quote}”',
-                            style: const TextStyle(fontSize: 16.0, fontFamily: 'RammettoOne', color: Color(0xFF353A47)),
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'RammettoOne',
+                              color: Color(0xFF353A47),
+                            ),
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 8.0),
                           Text(
                             '- ${quote.author}',
-                            style: const TextStyle(fontSize: 12.0, fontFamily: 'RammettoOne', color: Color(0xFF353A47)),
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              fontFamily: 'RammettoOne',
+                              color: Color(0xFF353A47),
+                            ),
                             textAlign: TextAlign.center,
                           ),
                         ],
