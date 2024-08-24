@@ -62,6 +62,15 @@ app.get('/quotes', async (req, res) => {
     }
 });
 
+app.get('/randomquote', async (req, res) => {
+    try {
+        const rows = await req.dbConn.query("SELECT * FROM quotes");
+        res.json(rows[Math.floor(Math.random() * rows.length)]);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+});
+
 app.post('/addquote', async (req, res) => {
     try {
         let { author, quote } = req.body;
