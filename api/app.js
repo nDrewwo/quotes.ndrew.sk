@@ -71,6 +71,41 @@ app.get('/randomquote', async (req, res) => {
     }
 });
 
+app.get('/poems', async (req, res) => {
+    try {
+        const rows = await req.dbConn.query("SELECT * FROM poems");
+
+        // Replace new line characters with <br/> for HTML, do NOT escape quotes manually
+        const formattedRows = rows.map(row => ({
+            ...row,
+            poem: row.poem.replace(/\r\n|\n|\r/g, '<br/>') // Handle newlines for HTML
+        }));
+
+        res.json(formattedRows); // res.json handles correct JSON serialization
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+});
+
+app.get('/randompoem', async (req, res) => {
+    try {
+        const rows = await req.dbConn.query("SELECT * FROM poems");
+
+        // Select a random poem and format it similarly by replacing newlines with <br/>
+        const randomPoem = rows[Math.floor(Math.random() * rows.length)];
+        const formattedPoem = {
+            ...randomPoem,
+            poem: randomPoem.poem.replace(/\r\n|\n|\r/g, '<br/>') // Handle newlines for HTML
+        };
+
+        res.json(formattedPoem);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+});
+
+
+
 app.post('/addquote', async (req, res) => {
     try {
         let { author, quote } = req.body;
