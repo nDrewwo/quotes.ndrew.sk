@@ -3,9 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const quoteContainer = document.getElementById('quote-container');
     let noResultsHeading; // Declare the heading variable outside the function scope
   
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    if (searchParam) {
+      searchInput.value = searchParam;
+    }
+  
     searchInput.addEventListener('input', function () {
       const searchTerm = searchInput.value.toLowerCase();
       filterQuotes(searchTerm);
+      updateURLParameter('search', searchInput.value);
     });
   
     fetch('https://api-quotes.ndrew.sk/quotes')
@@ -13,13 +20,15 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         // Shuffle the quotes randomly
         const shuffledQuotes = shuffleArray(data);
-  
+
         displayQuotes(shuffledQuotes);
         setSearchInputAndQuoteWidth();
+        
+        if (searchParam) {
+          filterQuotes(searchParam.toLowerCase());
+        }
       })
-      .catch(error => console.error('Error fetching quotes:', error));
-  
-    function displayQuotes(quotes) {
+      .catch(error => console.error('Error fetching quotes:', error));    function displayQuotes(quotes) {
       quoteContainer.innerHTML = ''; // Clear existing quotes
       quotes.forEach(quote => {
         const quoteElement = document.createElement('div');
@@ -103,5 +112,15 @@ document.addEventListener('DOMContentLoaded', function () {
         [array[i], array[j]] = [array[j], array[i]];
       }
       return array;
+    }
+
+    function updateURLParameter(param, value) {
+      const url = new URL(window.location);
+      if (value && value.trim() !== '') {
+        url.searchParams.set(param, value);
+      } else {
+        url.searchParams.delete(param);
+      }
+      window.history.replaceState({}, '', url);
     }
   });
