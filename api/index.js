@@ -51,6 +51,10 @@ app.use(async (req, res, next) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.send('api-quotes.ndrew.sk is up and running!');
+});
+
 app.use((req, res, next) => {
     // Release connection on finish (success or client disconnection)
     res.on('finish', () => {
