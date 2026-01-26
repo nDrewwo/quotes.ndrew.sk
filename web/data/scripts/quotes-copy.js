@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const copyElements = document.querySelectorAll('.copy:not([data-listener])');
     copyElements.forEach(copyElement => {
       copyElement.setAttribute('data-listener', 'true');
-      copyElement.addEventListener('click', function () {
+      copyElement.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         const quoteContainer = copyElement.closest('.quoteContainer');
         const quoteText = quoteContainer.querySelector('.quote').textContent;
         const authorText = quoteContainer.querySelector('.author').textContent;

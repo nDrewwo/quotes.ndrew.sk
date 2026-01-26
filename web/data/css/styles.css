@@ -12,6 +12,11 @@
     margin-left: 15px;
     color: #7CB0FF;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .copy:hover{
