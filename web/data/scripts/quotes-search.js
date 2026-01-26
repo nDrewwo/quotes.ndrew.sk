@@ -6,8 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const searchParam = urlParams.get('search');
   if (searchParam) {
     searchInput.value = searchParam;
-    filterQuotes(searchParam.toLowerCase());
   }
+  
+  // Apply filter after quotes are loaded
+  document.addEventListener('quotesLoaded', function() {
+    if (searchParam) {
+      filterQuotes(searchParam.toLowerCase());
+    }
+  });
 
   // Add search functionality
   searchInput.addEventListener('input', function () {

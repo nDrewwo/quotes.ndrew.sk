@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       windowContent.appendChild(quoteContainer);
     });
+    
+    // Dispatch event after quotes are loaded
+    document.dispatchEvent(new CustomEvent('quotesLoaded'));
   }
 
   function shuffleArray(array) {
