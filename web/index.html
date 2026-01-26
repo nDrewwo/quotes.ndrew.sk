@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quotes Website</title>
+    <title>Quotes</title>
+    <link rel="stylesheet" href="data/css/main.css">
     <link rel="stylesheet" href="data/css/styles.css">
-    <link rel="icon" href="data/assets/icon.png">
+    <link rel="icon" href="https://cdn.ndrew.sk/icons/ndrew.sk/icon.png">
 </head>
 <body>
-    <div id="search-container">
-        <input type="text" id="search-input" placeholder="Search quotes...">
-    </div>
-    <div id="quote-container"></div>
-    <script src="data/js/quotes.js"></script>
+    <main>
+        <input type="text" name="search" placeholder="Search quotes">
+        <div class="window">
+            <div class="topbar">
+                <div class="nametag">
+                    <h1>Quotes</h1>
+                </div>
+                <img src="https://cdn.ndrew.sk/icons/ndrew.sk/exit.png" alt="imagegoezhere" class="exiticon">
+            </div>
+            <div class="windowContent"></div>
+        </div>
+    </main>
+    <script src="data/scripts/quotes-fetch.js"></script>
+    <script src="data/scripts/quotes-search.js"></script>
+    <script src="data/scripts/quotes-copy.js"></script>
 </body>
 </html>

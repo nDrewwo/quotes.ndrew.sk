@@ -1,13 +1,23 @@
 document.getElementById('quoteForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    var submitButton = document.getElementById('submitButton'); // Make sure your submit button has this ID
+    const quoteInput = document.getElementById('quote');
+    const authorInput = document.getElementById('author');
+    const submitButton = document.querySelector('button[type="submit"]');
+
     if (submitButton.disabled) return; // Prevent multiple clicks
 
     submitButton.disabled = true; // Disable button
 
-    var author = document.getElementById('author').value;
-    var quote = document.getElementById('quote').value;
+    const author = authorInput.value.trim();
+    const quote = quoteInput.value.trim();
+
+    // Validate inputs
+    if (!author || !quote) {
+        console.error('Both quote and author are required');
+        submitButton.disabled = false;
+        return;
+    }
 
     fetch('https://api-quotes.ndrew.sk/addquote', {
         method: 'POST',
@@ -22,7 +32,11 @@ document.getElementById('quoteForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        window.location.href = "https://quotes.ndrew.sk"; // replace with your URL
+        // Clear form
+        quoteInput.value = '';
+        authorInput.value = '';
+        // Redirect to quotes page
+        window.location.href = "https://quotes.ndrew.sk";
     })
     .catch((error) => {
         console.error('Error:', error);

@@ -1,66 +1,26 @@
-@import url('https://fonts.cdnfonts.com/css/rammetto-one');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.quoteContainer{
+    margin: 10px;
+    margin-top: 15px;
 }
 
-::-webkit-scrollbar {
-    width: 5px; 
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #f3f4f5; 
-    border-radius: 6px; 
-}
-
-::-webkit-scrollbar-track {
-    background-color: #353A47; 
-}
-
-body {
-    font-family: 'Rammetto One', sans-serif;
-    font-size: 20px;
-    color: #f3f4f5;
-    background-color: #353A47;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+.author-and-copy{
+    margin-top: 5px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
-#search-container {
-    margin: 20px;
-}
-
-#search-input {
-    padding: 1rem;
-    border-radius: 10px;
-    border: none;
-    font-family: "Rammetto One", sans-serif;
-}
-
-#search-input:focus {
-    outline: none;
-}
-
-
-
-
-.quote {
-    background-color: #f3f4f5;
-    color: #353A47;
-    padding: 1rem;
-    border-radius: 10px;
-    margin: 1rem;
-    transition: 0.2s;
-}
-
-.quote:hover {
-    transform: translateY(-5px);
+.copy{
+    margin-left: 15px;
+    color: #7CB0FF;
     cursor: pointer;
+}
+
+.copy:hover{
+    text-decoration: underline;
+}
+
+input{
+    padding: 0.5rem;
+    margin: 0;
+    width: 100%;
+    height: 35px;
 }
